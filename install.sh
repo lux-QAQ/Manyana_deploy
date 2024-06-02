@@ -560,7 +560,7 @@ echo -e "\033[32m创建脚本: $START_DIR/direct/3_Manyana.sh\033[0m\n"
 # 创建1_napcat_withoutgui.sh脚本
 cat > $START_DIR/1_napcat_withoutgui.sh <<EOL
 #!/bin/bash
-echo -e "\033[31m请勿试图切换到screen窗口，否则可能导致进程关闭，如果扫码登录机器人，请直接cat overflow_log.txt日志\033[0m"
+echo -e "\033[31m请勿试图切换到screen窗口，否则可能导致进程关闭，如果扫码登录机器人，请直接cat 1_napcat_log.txt日志\033[0m"
 screen -S napcat -d -m $START_DIR/direct/1_napcat.sh
 EOL
 chmod +x $START_DIR/1_napcat_withoutgui.sh
