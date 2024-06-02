@@ -11,7 +11,6 @@ detect_package_manager() {
 
 # 红色中文提示
 echo -e "\033[31m本脚本固定了安装版本，如果你发现这个安装脚本太老了已经不能使用了请参照Manyana、Overflow、Napcatqq官方教程手动安装\033[0m"
-echo -e "\033[31m本脚本不是一键安装脚本，需要你监视安装过程并适当选择\033[0m"
 echo -e "\033[31m本脚本仅适配了带有apt和yum的系统，其他系统请根据官方教程手动安装或者根据本脚本的逻辑自行安装\033[0m"
 echo -e "\033[31m安装过程中如果提示需要输入yes或y 或者选择1 2 3，请输入合适的选项。\033[0m"
 echo -e "\033[33m安装过程可能会持续20-60分钟，这取决于你的网速和处理器性能\033[0m"
@@ -20,6 +19,74 @@ echo -e "\033[33mlinux上部署肯定没有windows那么方便，但既然你选
 
 # 等待用户确认
 read -p "按回车键继续..."
+
+
+# 克隆GitHub仓库
+# 定义颜色
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+# 提示用户选择下载地址
+echo -e "\n\033[32m选择Manyana下载地址\033[0m\n"
+echo -e "${RED}提示：如果可以直连GitHub，网速较快，建议直接使用以下地址：${NC}"
+echo "https://github.com/avilliai/Manyana.git"
+
+echo "请选择下载地址："
+echo -e "\033[33m1. 使用镜像地址 https://mirror.ghproxy.com/https://github.com/avilliai/Manyana.git\033[0m"
+echo -e "\033[33m2. 使用备用地址 https://ghproxy.net/https://github.com/avilliai/Manyana.git\033[0m"
+echo -e "\033[33m3. \033[0m\033[31m直接使用\033[0m\033[33mGitHub地址 https://github.com/avilliai/Manyana.git\033[0m"
+echo -e "\033[33m4. 使用默认地址\033[0m(\033[32mgithub难以连接时推荐选这个\033[0m) \033[33mhttps://github.moeyy.xyz/https://github.com/avilliai/Manyana.git\033[0m"
+
+read -t 10 -p "请输入选项 (1/2/3/4): " choice
+if [ $? -ne 0 ]; then
+    echo -e "\n${RED}倒计时结束，使用默认地址。${NC}"
+    choice="4"
+fi
+
+# 根据用户选择设置下载地址
+if [ "$choice" == "1" ]; then
+    repo_url="https://mirror.ghproxy.com/https://github.com/avilliai/Manyana.git"
+elif [ "$choice" == "2" ]; then
+    repo_url="https://ghproxy.net/https://github.com/avilliai/Manyana.git"
+elif [ "$choice" == "3" ]; then
+    repo_url="https://github.com/avilliai/Manyana.git"
+elif [ "$choice" == "4" ]; then
+    repo_url="https://github.moeyy.xyz/https://github.com/avilliai/Manyana.git"
+    use_wget=true
+else
+    echo -e "\033[31m无效的选项，使用默认地址。\033[0m"
+    repo_url="https://github.moeyy.xyz/https://github.com/avilliai/Manyana.git"
+    use_wget=true
+fi
+
+
+# 提示用户选择下载地址
+echo -e "\n\033[32m选择Manyana启动器下载地址\033[0m\n"
+echo -e "${RED}提示：如果可以直连GitHub，网速较快，建议直接使用以下地址：${NC}"
+echo "wget https://github.com/avilliai/Manyana/releases/download/Manyana/ManyanaLauncher_V2.rar -O ManyanaLauncher_V2.rar"
+
+echo "请选择下载地址："
+echo -e "\033[33m1. 使用\033[0m(\033[32mgithub难以连接时推荐选这个\033[0m)\033[33m默认地址 https://mirror.ghproxy.com/https://github.com/avilliai/Manyana/releases/download/Manyana/ManyanaLauncher_V2.rar\033[0m"
+echo -e "\033[33m2. 使用备用地址 https://ghproxy.net/https://github.com/avilliai/Manyana/releases/download/Manyana/ManyanaLauncher_V2.rar\033[0m"
+echo -e "\033[33m3.\033[0m \033[31m直接使用GitHub地址\033[0m \033[32mhttps://github.com/avilliai/Manyana/releases/download/Manyana/ManyanaLauncher_V2.rar\033[0m"
+
+read -t 10 -p "请输入选项 (1/2/3): " choice
+if [ $? -ne 0 ]; then
+    echo -e "\n${RED}倒计时结束，使用默认地址。${NC}"
+    choice="1"
+fi
+
+# 根据用户选择设置下载地址
+if [ "$choice" == "1" ]; then
+    file_url="https://mirror.ghproxy.com/https://github.com/avilliai/Manyana/releases/download/Manyana/ManyanaLauncher_V2.rar"
+elif [ "$choice" == "2" ]; then
+    file_url="https://ghproxy.net/https://github.com/avilliai/Manyana/releases/download/Manyana/ManyanaLauncher_V2.rar"
+elif [ "$choice" == "3" ]; then
+    file_url="https://github.com/avilliai/Manyana/releases/download/Manyana/ManyanaLauncher_V2.rar"
+else
+    echo "\033[33m无效的选项，使用默认地址。\033[0m"
+    file_url="https://mirror.ghproxy.com/https://github.com/avilliai/Manyana/releases/download/Manyana/ManyanaLauncher_V2.rar"
+fi
 
 
 
@@ -33,51 +100,55 @@ else
 fi
 
 
-# 获取CPU架构
-ARCH=$(uname -m)
+# 检查是否已经安装了conda
+if command -v conda &> /dev/null; then
+    echo -e "\033[32mConda已经安装。\033[0m"
+else
+    # 获取CPU架构
+    ARCH=$(uname -m)
 
-# 根据CPU架构设置Miniconda安装脚本的URL
-if [ "$ARCH" == "x86_64" ]; then
-    MINICONDA_URL="https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh"
+    # 根据CPU架构设置Miniconda安装脚本的URL
+    if [ "$ARCH" == "x86_64" ]; then
+        MINICONDA_URL="https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh"
     elif [ "$ARCH" == "aarch64" ]; then
-    MINICONDA_URL="https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-aarch64.sh"
+        MINICONDA_URL="https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-aarch64.sh"
     elif [ "$ARCH" == "ppc64le" ]; then
-    MINICONDA_URL="https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-ppc64le.sh"
+        MINICONDA_URL="https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-ppc64le.sh"
     elif [ "$ARCH" == "s390x" ]; then
-    MINICONDA_URL="https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-s390x.sh"
-else
-    echo -e "\033[31m不支持的架构: $ARCH\033[0m"
-    exit 1
-fi
+        MINICONDA_URL="https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-s390x.sh"
+    else
+        echo -e "\033[31m不支持的架构: $ARCH\033[0m"
+        exit 1
+    fi
 
-# 下载Miniconda安装脚本
-echo -e "\033[31m正在下载适用于 $ARCH 架构的Miniconda安装脚本...\033[0m"
-wget $MINICONDA_URL -O Miniconda3-latest-Linux-$ARCH.sh
+    # 下载Miniconda安装脚本
+    echo -e "\033[31m正在下载适用于 $ARCH 架构的Miniconda安装脚本...\033[0m"
+    wget $MINICONDA_URL -O Miniconda3-latest-Linux-$ARCH.sh
 
-# 检查下载是否成功
-if [ $? -ne 0 ]; then
-    echo -e "\033[31m下载Miniconda安装脚本失败。\033[0m"
-    exit 1
-fi
+    # 检查下载是否成功
+    if [ $? -ne 0 ]; then
+        echo -e "\033[31m下载Miniconda安装脚本失败。\033[0m"
+        exit 1
+    fi
 
-# 设置脚本的权限为777
-echo -e "\033[32m正在设置Miniconda安装脚本的权限...\033[0m"
-chmod 777 Miniconda3-latest-Linux-$ARCH.sh
+    # 设置脚本的权限为777
+    echo -e "\033[32m正在设置Miniconda安装脚本的权限...\033[0m"
+    chmod 777 Miniconda3-latest-Linux-$ARCH.sh
 
+    # 执行安装脚本
+    echo -e "\033[32m正在执行Miniconda安装脚本...\033[0m"
+    ./Miniconda3-latest-Linux-$ARCH.sh -b -p $HOME/miniconda
+    export PATH="$HOME/miniconda/bin:$PATH"
+    eval "$($HOME/miniconda/bin/conda shell.bash hook)"
+    conda init
 
-# 执行安装脚本
-echo -e "\033[32m正在执行Miniconda安装脚本...\033[0m"
-./Miniconda3-latest-Linux-$ARCH.sh -b -p $HOME/miniconda
-export PATH="$HOME/miniconda/bin:$PATH"
-eval "$($HOME/miniconda/bin/conda shell.bash hook)"
-conda init
-
-# 检查安装是否成功
-if [ $? -eq 0 ]; then
-    echo -e "\033[32mMiniconda安装成功。\033[0m"
-else
-    echo -e "\033[31mMiniconda安装失败。\033[0m"
-    exit 1
+    # 检查安装是否成功
+    if [ $? -eq 0 ]; then
+        echo -e "\033[32mMiniconda安装成功。\033[0m"
+    else
+        echo -e "\033[31mMiniconda安装失败。\033[0m"
+        exit 1
+    fi
 fi
 
 # 修改conda的软件源配置文件
@@ -105,7 +176,7 @@ echo -e "\033[32mconda软件源配置完成。\033[0m"
 
 # 清除conda缓存
 echo -e "\033[32m正在清除conda缓存...\033[0m"
-conda clean -i
+conda clean -i -y
 
 # 创建Python 3.9虚拟环境
 echo -e "\033[32m正在创建Python 3.9虚拟环境...\033[0m"
@@ -121,38 +192,7 @@ else
     exit 1
 fi
 
-# 克隆GitHub仓库
-# 定义颜色
-RED='\033[0;31m'
-NC='\033[0m' # No Color
 
-# 提示用户选择下载地址
-echo -e "${RED}提示：如果可以直连GitHub，网速较快，建议直接使用以下地址：${NC}"
-echo "https://github.com/avilliai/Manyana.git"
-
-echo "请选择下载地址："
-echo -e "\033[33m1. 使用镜像地址 https://mirror.ghproxy.com/https://github.com/avilliai/Manyana.git\033[0m"
-echo -e "\033[33m2. 使用备用地址 https://ghproxy.net/https://github.com/avilliai/Manyana.git\033[0m"
-echo -e "\033[33m3. \033[0m\033[31m直接使用\033[0m\033[33mGitHub地址 https://github.com/avilliai/Manyana.git\033[0m"
-echo -e "\033[33m4. 使用默认地址\033[0m(\033[32mgithub难以连接时推荐选这个\033[0m) \033[33mhttps://github.moeyy.xyz/https://github.com/avilliai/Manyana.git\033[0m"
-
-read -p "请输入选项 (1/2/3/4): " choice
-
-# 根据用户选择设置下载地址
-if [ "$choice" == "1" ]; then
-    repo_url="https://mirror.ghproxy.com/https://github.com/avilliai/Manyana.git"
-elif [ "$choice" == "2" ]; then
-    repo_url="https://ghproxy.net/https://github.com/avilliai/Manyana.git"
-elif [ "$choice" == "3" ]; then
-    repo_url="https://github.com/avilliai/Manyana.git"
-elif [ "$choice" == "4" ]; then
-    repo_url="https://github.moeyy.xyz/https://github.com/avilliai/Manyana.git"
-    use_wget=true
-else
-    echo -e "\033[31m无效的选项，使用默认地址。\033[0m"
-    repo_url="https://github.moeyy.xyz/https://github.com/avilliai/Manyana.git"
-    use_wget=true
-fi
 
 # 克隆GitHub仓库
 echo -e "\033[32m正在克隆GitHub仓库...\033[0m"
@@ -212,28 +252,6 @@ else
     exit 1
 fi
 
-# 提示用户选择下载地址
-echo -e "${RED}提示：如果可以直连GitHub，网速较快，建议直接使用以下地址：${NC}"
-echo "wget https://github.com/avilliai/Manyana/releases/download/Manyana/ManyanaLauncher_V2.rar -O ManyanaLauncher_V2.rar"
-
-echo "请选择下载地址："
-echo -e "\033[33m1. 使用\033[0m(\033[32mgithub难以连接时推荐选这个\033[0m)\033[33m默认地址 https://mirror.ghproxy.com/https://github.com/avilliai/Manyana/releases/download/Manyana/ManyanaLauncher_V2.rar\033[0m"
-echo -e "\033[33m2. 使用备用地址 https://ghproxy.net/https://github.com/avilliai/Manyana/releases/download/Manyana/ManyanaLauncher_V2.rar\033[0m"
-echo -e "\033[33m3.\033[0m \033[31m直接使用GitHub地址\033[0m \033[32mhttps://github.com/avilliai/Manyana/releases/download/Manyana/ManyanaLauncher_V2.rar\033[0m"
-
-read -p "请输入选项 (1/2/3): " choice
-
-# 根据用户选择设置下载地址
-if [ "$choice" == "1" ]; then
-    file_url="https://mirror.ghproxy.com/https://github.com/avilliai/Manyana/releases/download/Manyana/ManyanaLauncher_V2.rar"
-elif [ "$choice" == "2" ]; then
-    file_url="https://ghproxy.net/https://github.com/avilliai/Manyana/releases/download/Manyana/ManyanaLauncher_V2.rar"
-elif [ "$choice" == "3" ]; then
-    file_url="https://github.com/avilliai/Manyana/releases/download/Manyana/ManyanaLauncher_V2.rar"
-else
-    echo "\033[33m无效的选项，使用默认地址。\033[0m"
-    file_url="https://mirror.ghproxy.com/https://github.com/avilliai/Manyana/releases/download/Manyana/ManyanaLauncher_V2.rar"
-fi
 
 # 下载ManyanaLauncher_V2.rar
 echo -e "\033[32m正在下载ManyanaLauncher_V2.rar...\033[0m"
@@ -569,6 +587,7 @@ echo -e "\033[32m创建脚本: $START_DIR/3_Manyana_withoutgui.sh\033[0m\n"
 chmod  777 -R $CURRENT_DIR
 
 clear
+bash
 
 echo -e "\n\n\n\033[32m所有组件已经安装完毕，请仔细阅读以下内容：\033[0m"
 echo -e "\033[31m-------------------------------------------------------------------------------------------------\n\033[0m"
@@ -598,4 +617,5 @@ echo "Overflow都懂的请自己搜索"
 echo "NapCatQQ都懂的请自己搜"
 echo -e "\033[33m如有疑问欢迎加Q群\033[0m ： \033[42m628763673\033[0m"
 echo -e "\033[32m-------------------------------------------------------------------------------------------------\n\033[0m"
+echo -e "\033[32m脚本执行完毕\n\033[0m"
 
