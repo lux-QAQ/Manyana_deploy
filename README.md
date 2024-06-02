@@ -1,2 +1,2 @@
 # Manyana_deploy
-Manyana机器人自动化部署脚本
+Manyana机器人自动化部署脚本，适用于带有apt和yum的系统
