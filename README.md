@@ -10,3 +10,5 @@ github地址：https://github.com/lux-QAQ/Manyana_deploy/tree/main
 `chmod 777 install.sh`
 
 `./install.sh`
+
+ **_脚本执行了严格混淆，运行时要多等一会。_** 
