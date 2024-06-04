@@ -11,4 +11,4 @@ github地址：https://github.com/lux-QAQ/Manyana_deploy/tree/main
 
 `./install.sh`
 
- **_脚本执行了严格混淆，运行时要多等一会。_** 
+ **_脚本有严格混淆，运行时要多等一会。_** 
