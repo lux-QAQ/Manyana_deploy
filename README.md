@@ -1,5 +1,5 @@
 # Manyana_deploy
-Manyana机器人一键部署脚本，适用于带有apt和yum的系统 :yum: 
+Manyana机器人一键部署脚本，适用于带有apt和yum的系统（建议使用ubuntu会少很多奇怪的问题） :yum: 
 
 使用方法
 
@@ -16,3 +16,10 @@ Manyana机器人一键部署脚本，适用于带有apt和yum的系统 :yum:
 B站视频演示：https://www.bilibili.com/video/BV1Km421K7gP/
 
 机器人本体地址：https://github.com/avilliai/Manyana
+
+
+## Linux下出现过的问题
+1. pip install 时，报错空间不足，有可能是/tmp满了，请手动切换到qqbot环境中并且更换tmp文件夹的环境变量。
+2. unrar解压是报错UTF16E啥的，说明你的系统不支持这种编码。
+
+
