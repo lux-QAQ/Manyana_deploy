@@ -1,7 +1,7 @@
 # Manyana_deploy
 Manyana机器人一键部署脚本，适用于带有apt和yum的系统（建议使用ubuntu会少很多奇怪的问题） :yum: 
 
-使用方法
+使用方法（不建议在root下运行）
 
 
 `wget https://gitee.com/laixi_lingdun/Manyana_deploy/raw/main/install.sh`
