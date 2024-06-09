@@ -17,6 +17,8 @@ B站视频演示：https://www.bilibili.com/video/BV1Km421K7gP/
 
 机器人本体地址：https://github.com/avilliai/Manyana
 
+## Windows部署教程
+前往https://github.com/avilliai/Manyana/releases下载howToUse.mp4查看
 
 ## Linux下出现过的问题
 1. (**_最常见的问题_**) overflow日志出现 红字connection refused ,或者 Manyana 启动后无任何反应，请确保你机器人初始化完毕后（也就是修改好各种配置文件后），启动了脚本1_*****.sh，然后cat 1_****.txt，并且扫码登录了。
