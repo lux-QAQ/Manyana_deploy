@@ -6,15 +6,37 @@ if [ ! -f "$CONFIG_FILE" ]; then
     echo "config.json 文件不存在！"
     exit 1
 fi
-# 获取当前目录
 # 提示用户输入机器人的名字
 BOT_NAME=$(dialog --no-lines --inputbox "请输入机器人的名字：" 10 50 3>&1 1>&2 2>&3)
+if [ $? -ne 0 ] || [ -z "$BOT_NAME" ]; then
+    clear
+    echo "机器人名字不能为空，或者取消了输入"
+    exit 1
+fi
+
 # 提示用户输入机器人的QQ号码
 BOT_QQ=$(dialog --no-lines --inputbox "请输入机器人的QQ号码：" 10 50 3>&1 1>&2 2>&3)
+if [ $? -ne 0 ] || [ -z "$BOT_QQ" ]; then
+    clear
+    echo "机器人QQ号码不能为空，或者取消了输入"
+    exit 1
+fi
+
 # 提示用户输入机器人主人的QQ号码
 MASTER_QQ=$(dialog --no-lines --inputbox "请输入机器人主人的QQ号码：" 10 50 3>&1 1>&2 2>&3)
+if [ $? -ne 0 ] || [ -z "$MASTER_QQ" ]; then
+    clear
+    echo "机器人主人的QQ号码不能为空，或者取消了输入"
+    exit 1
+fi
+
 # 提示用户输入主要的QQ群
 MAIN_GROUP=$(dialog --no-lines --inputbox "请输入主要的QQ群：" 10 50 3>&1 1>&2 2>&3)
+if [ $? -ne 0 ] || [ -z "$MAIN_GROUP" ]; then
+    clear
+    echo "主要的QQ群不能为空，或者取消了输入"
+    exit 1
+fi
 # 更新config.json文件
 sudo rm $CURRENT_DIR/Manyana/config.json
 cat > $CONFIG_FILE <<EOL
@@ -25,5 +47,5 @@ chmod 777 $CONFIG_FILE
 cp "$CURRENT_DIR/NapCat/config/napcat.json" "$CURRENT_DIR/NapCat/config/napcat_$BOT_QQ.json"
 cp "$CURRENT_DIR/NapCat/config/onebot11.json" "$CURRENT_DIR/NapCat/config/onebot11_$BOT_QQ.json"
 # 显示完成消息
-dialog --no-lines --msgbox "\n配置已更新并复制配置文件" 10 50
+dialog --no-lines --msgbox "\n初始化已经完成，如果需要修改机器人QQ号之类的，可以再次运行此脚本" 10 50
 clear
