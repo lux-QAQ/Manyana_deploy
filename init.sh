@@ -78,6 +78,7 @@ cat > $CURRENT_DIR/NapCat/config/onebot11_$BOT_QQ.json <<EOL
   }
 }
 EOL
+chmod 777 $CURRENT_DIR/NapCat/config/napcat.json
 # 显示完成消息
 dialog --no-lines --msgbox "\n初始化已经完成，如果需要修改机器人QQ号之类的，可以再次运行此脚本" 10 50
 clear
