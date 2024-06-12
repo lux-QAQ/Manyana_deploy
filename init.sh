@@ -45,7 +45,39 @@ EOL
 chmod 777 $CONFIG_FILE
 # 复制napcat.json和onebot11.json到对应的文件名
 cp "$CURRENT_DIR/NapCat/config/napcat.json" "$CURRENT_DIR/NapCat/config/napcat_$BOT_QQ.json"
-cp "$CURRENT_DIR/NapCat/config/onebot11.json" "$CURRENT_DIR/NapCat/config/onebot11_$BOT_QQ.json"
+cat > $CURRENT_DIR/NapCat/config/onebot11_$BOT_QQ.json <<EOL
+{
+  "http": {
+    "enable": false,
+    "host": "",
+    "port": 3000,
+    "secret": "",
+    "enableHeart": false,
+    "enablePost": false,
+    "postUrls": []
+  },
+  "ws": {
+    "enable": true,
+    "host": "",
+    "port": 3001
+  },
+  "reverseWs": {
+    "enable": false,
+    "urls": []
+  },
+  "debug": false,
+  "heartInterval": 30000,
+  "messagePostFormat": "array",
+  "enableLocalFile2Url": true,
+  "musicSignUrl": "",
+  "reportSelfMessage": false,
+  "token": "",
+  "GroupLocalTime": {
+    "Record": false,
+    "RecordList": []
+  }
+}
+EOL
 # 显示完成消息
 dialog --no-lines --msgbox "\n初始化已经完成，如果需要修改机器人QQ号之类的，可以再次运行此脚本" 10 50
 clear
