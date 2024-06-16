@@ -58,7 +58,7 @@ while true; do
         1)
             if [ "$NAPCAT_STATUS" == "\Zb\Z1未运行\Zn" ]; then
                 $START_DIR/1_napcat_withoutgui.sh
-                dialog --no-lines --colors --msgbox "\n\Zb\Z3Napcat 已启动，等待登录二维码...，请2s后按Enter键\Zn" 10 50
+                dialog --no-lines --colors --msgbox "\n\Zb\Z3Napcat 已启动，等待登录二维码...扫码后，请等待\Zn" 10 50
                 sleep 2
                 tail -n 30 $START_DIR/napcat_log.txt &
                 QR_CODE_DECODED=0
