@@ -60,8 +60,7 @@ while true; do
                 $START_DIR/1_napcat_withoutgui.sh
                 dialog --no-lines --colors --msgbox "\n\Zb\Z3Napcat 已启动，等待登录二维码...，请2s后按Enter键\Zn" 10 50
                 sleep 3
-                clear
-                cat  $START_DIR/napcat_log.txt &
+                tail -n 30 $START_DIR/napcat_log.txt &
                 LOG_SUCCESS=0
                 end=$((SECONDS + 60))
                 while [ $SECONDS -lt $end ]; do
