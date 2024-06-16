@@ -1,9 +1,9 @@
 #!/bin/bash
 START_DIR=$(pwd)
-
+CURRENT_DIR=$(pwd)/..
 # 检查是否存在 onebot_xxxx.json 文件
 check_init() {
-    if ls $START_DIR/../Napcat/config/onebot_*.json 1> /dev/null 2>&1; then
+    if ls $CURRENT_DIR/NapCat/config/onebot11_*.json 1> /dev/null 2>&1; then
         return 0
     else
         return 1
