@@ -71,7 +71,8 @@ while true; do
                     sleep 1
                 done
                 if [ $QR_CODE_DECODED -eq 1 ]; then
-                    dialog --no-lines --colors --msgbox "\n\Zb\Z3二维码已生成，请扫描登录\Zn" 10 50
+                    clear
+                    cat $START_DIR/napcat_log.txt
                     LOG_SUCCESS=0
                     while [ $SECONDS -lt $end ]; do
                         if grep -q -e "登录成功" -e "无法重复登录" $START_DIR/napcat_log.txt; then
