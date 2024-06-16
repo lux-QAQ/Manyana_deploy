@@ -59,23 +59,38 @@ while true; do
             if [ "$NAPCAT_STATUS" == "\Zb\Z1未运行\Zn" ]; then
                 $START_DIR/1_napcat_withoutgui.sh
                 dialog --no-lines --colors --msgbox "\n\Zb\Z3Napcat 已启动，等待登录二维码...，请2s后按Enter键\Zn" 10 50
-                sleep 3
+                sleep 2
                 tail -n 30 $START_DIR/napcat_log.txt &
-                LOG_SUCCESS=0
+                QR_CODE_DECODED=0
                 end=$((SECONDS + 60))
                 while [ $SECONDS -lt $end ]; do
-                    if grep -q -e "登录成功" -e "无法重复登录" $START_DIR/napcat_log.txt; then
-                        LOG_SUCCESS=1
+                    if grep -q "二维码解码URL" $START_DIR/napcat_log.txt; then
+                        QR_CODE_DECODED=1
                         break
                     fi
                     sleep 1
                 done
-                if [ $LOG_SUCCESS -eq 1 ]; then
-                    dialog --no-lines --colors --msgbox "\n\Zb\Z2Napcat 登录成功\Zn" 10 50
-                    NAPCAT_STATUS="\Zb\Z2运行中\Zn"
+                if [ $QR_CODE_DECODED -eq 1 ]; then
+                    dialog --no-lines --colors --msgbox "\n\Zb\Z3二维码已生成，请扫描登录\Zn" 10 50
+                    LOG_SUCCESS=0
+                    while [ $SECONDS -lt $end ]; do
+                        if grep -q -e "登录成功" -e "无法重复登录" $START_DIR/napcat_log.txt; then
+                            LOG_SUCCESS=1
+                            break
+                        fi
+                        sleep 1
+                    done
+                    if [ $LOG_SUCCESS -eq 1 ]; then
+                        dialog --no-lines --colors --msgbox "\n\Zb\Z2Napcat 登录成功\Zn" 10 50
+                        NAPCAT_STATUS="\Zb\Z2运行中\Zn"
+                    else
+                        tmux kill-session -t napcat
+                        dialog --no-lines --colors --msgbox "\n\Zb\Z1超时未登录，请重新启动\Zn" 10 50
+                        NAPCAT_STATUS="\Zb\Z1未运行\Zn"
+                    fi
                 else
                     tmux kill-session -t napcat
-                    dialog --no-lines --colors --msgbox "\n\Zb\Z1超时未登录，请重新启动\Zn" 10 50
+                    dialog --no-lines --colors --msgbox "\n\Zb\Z1二维码生成超时，请重新启动\Zn" 10 50
                     NAPCAT_STATUS="\Zb\Z1未运行\Zn"
                 fi
             else
