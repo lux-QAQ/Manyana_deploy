@@ -99,6 +99,7 @@ echo -e "\033[32m创建脚本: $START_DIR/3_Manyana_withoutgui.sh\033[0m\n"
 
 curl -o $START_DIR/gui.sh https://gitee.com/laixi_lingdun/Manyana_deploy/raw/main/gui.sh 
 curl -o $START_DIR/init.sh https://gitee.com/laixi_lingdun/Manyana_deploy/raw/main/init.sh
+curl -o $START_DIR/update.sh https://gitee.com/laixi_lingdun/Manyana_deploy/raw/main/update.sh
 
 chmod  777 -R $CURRENT_DIR
 echo -e "\n\n\n\033[32m修补完毕，请仔细阅读以下内容：\033[0m"
