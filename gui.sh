@@ -109,7 +109,7 @@ while true; do
         3)
             if grep -q "已连接到服务器" "$START_DIR/overflow_log.txt"; then
                 if [ "$MANYANA_STATUS" == "\Zb\Z1未运行\Zn" ] || [ "$MANYANA_STATUS" == "\Zb\Z1等待overflow启动后再执行\Zn" ]; then
-                    sleep 10
+                    sleep 1
                     $START_DIR/3_Manyana_withoutgui.sh
                     dialog --no-lines --colors --msgbox "\n\Zb\Z3Manyana 启动中，请耐心等待，你可以退出脚本，重进脚本以检查是否启动成功\Zn" 10 50
                 else
