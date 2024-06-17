@@ -11,6 +11,6 @@ wget https://gitee.com/laixi_lingdun/Manyana_deploy/raw/main/install_payload.sh 
 chmod +x install_program.sh
 
 # 使用 tmux 运行安装脚本并重定向输出到日志文件
-tmux new-session  -s install_session 'bash install_program.sh | tee install_log.txt'
+tmux new-session  -s install 'bash install_program.sh | tee install_log.txt'
 
 
