@@ -1,4 +1,11 @@
 #!/bin/bash
+ARCH=$(uname -m)
+python_version=""
+if [ "$ARCH" == "x86_64" ]; then
+    python_version="python3.9"
+else
+    python_version="python"
+fi
 # 尝试解析符号链接获取实际路径
 if command -v readlink &> /dev/null; then
     script_path=$(readlink -f "$0")
@@ -18,4 +25,4 @@ CURRENT_DIR=$parent_dir
 clear
 cd $CURRENT_DIR/Manyana/
 source $HOME/miniconda/bin/activate qqbot
-python setUp.py | tee $CURRENT_DIR/start/update_log.txt
+$python_version setUp.py | tee $CURRENT_DIR/start/update_log.txt
