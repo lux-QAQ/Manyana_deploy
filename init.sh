@@ -8,9 +8,13 @@ else
     # 不支持 readlink 或 realpath 的情况
     script_path=$(cd "$(dirname "$0")"; pwd -P)/$(basename "$0")
 fi
+# 获取当前脚本所在的目录（绝对路径）
+script_dir=$(dirname "$script_path")
 
-START_DIR=$(dirname "$script_path")
-CURRENT_DIR=$(cd "$script_dir/.."; pwd)
+# 获取父目录（绝对路径）
+parent_dir=$(cd "$script_dir/.."; pwd)
+START_DIR=$script_dir
+CURRENT_DIR=$parent_dir
 # 检查是否存在config.json文件
 CONFIG_FILE="$CURRENT_DIR/Manyana/config.json"
 if [ ! -f "$CONFIG_FILE" ]; then
