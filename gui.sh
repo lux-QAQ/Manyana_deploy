@@ -28,10 +28,10 @@ view_log() {
 
 # 检查初始化
 if ! check_init; then
-    dialog --no-lines --colors --msgbox "\n\Zb\Z1未执行初始化，请先运行初始化脚本\Zn" 10 50
+    dialog --no-lines --colors --msgbox "\n\Zb\Z1未执行初始化，请先运行初始化脚本。按Enter开始初始化\Zn" 10 50
     $START_DIR/init.sh
     if ! check_init; then
-        dialog --no-lines --colors --msgbox "\n\Zb\Z1初始化失败，请检查配置并重试\Zn" 10 50
+        dialog --no-lines --colors --msgbox "\n\Zb\Z1初始化失败，请检查配置并重新初始化\Zn" 10 50
         exit 1
     fi
 fi
