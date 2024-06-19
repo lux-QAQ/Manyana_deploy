@@ -12,5 +12,6 @@ chmod +x install_program.sh
 
 # 使用 tmux 运行安装脚本并重定向输出到日志文件
 tmux new-session  -s install 'bash install_program.sh | tee install_log.txt'
-
-
+echo -e "\033[32m安装过程的日志保存到了install_log.txt,你可以执行cat install_log.txt来查看是否成功。\033[0m"
+sleep 2
+cat install_log.txt
