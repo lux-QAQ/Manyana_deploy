@@ -15,10 +15,19 @@ script_dir=$(dirname "$script_path")
 parent_dir=$(cd "$script_dir/.."; pwd)
 START_DIR=$script_dir
 CURRENT_DIR=$parent_dir
-# 检查是否存在 onebot_xxxx.json 文件
+# 检查初始化 1未初始化 0已初始化
 check_init() {
     if ls $CURRENT_DIR/NapCat/config/onebot11_*.json 1> /dev/null 2>&1; then
-        return 0
+        if [ -f "$CURRENT_DIR/Manyana/config.json" ]; then
+            grep -q -e '{"botName": "YUI", "botQQ": "919467430", "master": "1840094972","mainGroup": "628763673", "vertify_key": "1234567890", "port": "23456"}' "$CURRENT_DIR/Manyana/config.json"
+            if [ $? -eq 0 ]; then
+                return 1  # 如果 Manyana 的 config.json 文件内容符合初始化条件，返回1表示未初始化
+            else
+                return 0  # 已初始化
+            fi
+        else
+            return 1  # 未初始化
+        fi
     else
         return 1
     fi
@@ -40,7 +49,7 @@ view_log() {
     sleep 3
 }
 
-# 检查初始化
+# 检查初始化 1未初始化 0已初始化
 if ! check_init; then
     dialog --no-lines --colors --msgbox "\n\Zb\Z1未执行初始化，请先运行初始化脚本。按Enter开始初始化\Zn" 10 50
     $START_DIR/init.sh
