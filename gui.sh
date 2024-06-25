@@ -65,7 +65,7 @@ while true; do
     MANYANA_STATUS=$(check_running "Manyana")
 
     CHOICE=$(dialog --no-lines --colors --clear --title "⭐ \Zb\Z4机器人启动菜单\Zn ⭐" \
-        --menu "\n\Zb\Z6请选择要执行的操作:\Zn" 20 50 10 \
+        --menu "\n\Zb\Z6请选择要执行的操作:\Zn" 20 50 13 \
         1 "\Zb\Z3启动 Napcat \Zn (\Zn $NAPCAT_STATUS \Zb\Z3)\Zn" \
         2 "\Zb\Z3启动 Overflow \Zn (\Zn $OVERFLOW_STATUS \Zb\Z3)\Zn" \
         3 "\Zb\Z3启动 Manyana \Zn (\Zn $MANYANA_STATUS \Zb\Z3)\Zn" \
@@ -73,8 +73,11 @@ while true; do
         5 "\Zb\Z3临时查看 Overflow 日志2s\Zn" \
         6 "\Zb\Z3临时查看 Manyana 日志2s\Zn" \
         7 "\Zb\Z1停止所有进程\Zn" \
-        8 "\Zb\Z3更新机器人\Zn" \
-        9 "\Zb\Z4退出\Zn" \
+        8 "\Zb\Z1结束 Napcat 进程\Zn" \
+        9 "\Zb\Z1结束 Overflow 进程\Zn" \
+        10 "\Zb\Z1结束 Manyana 进程\Zn" \
+        11 "\Zb\Z3更新机器人\Zn" \
+        12 "\Zb\Z4退出\Zn" \
         3>&1 1>&2 2>&3)
 
     case $CHOICE in
@@ -162,6 +165,18 @@ while true; do
             dialog --no-lines --colors --msgbox "\n\Zb\Z1所有进程已停止\Zn" 10 50
             ;;
         8)
+            tmux kill-session -t napcat
+            dialog --no-lines --colors --msgbox "\n\Zb\Z1Napcat 进程已结束\Zn" 10 50
+            ;;
+        9)
+            tmux kill-session -t overflow
+            dialog --no-lines --colors --msgbox "\n\Zb\Z1Overflow 进程已结束\Zn" 10 50
+            ;;
+        10)
+            tmux kill-session -t Manyana
+            dialog --no-lines --colors --msgbox "\n\Zb\Z1Manyana 进程已结束\Zn" 10 50
+            ;;
+        11)
             if [ -d "$START_DIR/../Manyana/.git" ]; then
                 $START_DIR/update.sh
             else
@@ -169,7 +184,7 @@ while true; do
                 $START_DIR/update.sh
             fi
             ;;
-        9)
+        12)
             clear
             exit 0
             ;;
