@@ -23,7 +23,7 @@ B站视频演示：https://www.bilibili.com/video/BV1Km421K7gP/
 前往https://github.com/avilliai/Manyana/releases
 下载howToUse.mp4查看
 
-## 旧版本更新到GUI版本
+## 旧版本脚本更新
 使用方法
 
 （不建议在root下运行）
