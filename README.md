@@ -1,7 +1,7 @@
 # Manyana_deploy（带有UI界面）
 Manyana机器人一键部署脚本，适用于带有apt和yum的系统（建议使用ubuntu会少很多奇怪的问题） :yum: 
 
-使用方法
+# 使用方法
 
 （不建议在root下运行）
 
@@ -23,8 +23,7 @@ B站视频演示：https://www.bilibili.com/video/BV1Km421K7gP/
 前往https://github.com/avilliai/Manyana/releases
 下载howToUse.mp4查看
 
-## 旧版本脚本更新
-使用方法
+## 旧版本的启动脚本如何更新到最新版
 
 （不建议在root下运行）
 
