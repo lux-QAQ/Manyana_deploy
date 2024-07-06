@@ -1,4 +1,4 @@
-# Manyana_deploy（带有UI界面）
+# Manyana_deploy（带有UI界面，支持x86和arm64）
 Manyana机器人一键部署脚本，适用于带有apt和yum的系统（建议使用ubuntu会少很多奇怪的问题） :yum: 
 
 # 使用方法
