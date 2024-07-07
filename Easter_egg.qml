@@ -18,8 +18,10 @@ FluScrollablePage {
             anchors.centerIn: parent
 
             FluImage {
-                anchors.fill: parent
-                fillMode: Image.PreserveAspectCrop
+                id: image
+                height: parent.height
+                width: image.preserveAspectRatio ? image.height * image.aspectRatio : parent.width
+                fillMode: Image.PreserveAspectFit
                 source: "https://xialiu.cn/api/dan/"
 
                 onStatusChanged: {
@@ -30,6 +32,12 @@ FluScrollablePage {
 
                 clickErrorListener: function() {
                     source = "https://edui123.com/rili/"
+                }
+
+                onSourceSizeChanged: {
+                    if (sourceSize.width > 0 && sourceSize.height > 0) {
+                        aspectRatio = sourceSize.width / sourceSize.height
+                    }
                 }
             }
         }
