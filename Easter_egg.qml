@@ -7,7 +7,7 @@ import "../component"
 
 FluScrollablePage{
 
-    title: qsTr("Image")
+    title: qsTr("菜单")
 
     FluFrame{
         Layout.fillWidth: true
@@ -17,7 +17,6 @@ FluScrollablePage{
             spacing: 15
             anchors{
                 verticalCenter: parent.verticalCenter
-                left:parent.left
             }
             FluImage{
                 width: 384
