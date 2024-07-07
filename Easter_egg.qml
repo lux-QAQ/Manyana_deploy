@@ -19,8 +19,9 @@ FluScrollablePage {
 
             FluImage {
                 id: image
+                property real aspectRatio: 1.0
                 height: parent.height
-                width: image.preserveAspectRatio ? image.height * image.aspectRatio : parent.width
+                width: height * aspectRatio
                 fillMode: Image.PreserveAspectFit
                 source: "https://xialiu.cn/api/dan/"
 
