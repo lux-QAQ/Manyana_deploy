@@ -6,11 +6,11 @@ import FluentUI 1.0
 import "../component"
 
 FluScrollablePage {
-
     FluFrame {
         Layout.fillWidth: true
         Layout.preferredHeight: 1000
         padding: 10
+
         Column {
             spacing: 50
             width: parent.width
@@ -18,17 +18,16 @@ FluScrollablePage {
             anchors.centerIn: parent
 
             FluImage {
-                width: 384
-                height: 240
+                anchors.fill: parent
+                fillMode: Image.PreserveAspectCrop
                 source: "https://xialiu.cn/api/dan/"
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
 
                 onStatusChanged: {
                     if (status === Image.Error) {
                         showError(qsTr("The image failed to load, please reload"))
                     }
                 }
+
                 clickErrorListener: function() {
                     source = "https://edui123.com/rili/"
                 }
