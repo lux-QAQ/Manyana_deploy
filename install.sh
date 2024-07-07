@@ -1,8 +1,21 @@
 #!/bin/bash
 
-# 安装 tmux
-sudo apt-get update
-sudo apt-get install -y tmux wget
+detect_package_manager() {
+    if command -v apt &> /dev/null; then
+        echo "apt"
+        elif command -v yum &> /dev/null; then
+        echo "yum"
+    else
+        echo "none"
+    fi
+}
+
+if [ "$package_manager" = "apt" ];then
+    sudo apt update && sudo apt-get install -y tmux wget unrar unzip
+else
+    sudo yum install -q -y tmux wget unrar unzip
+fi
+
 echo -e "\033[32m将使用tmux运行安装过程，防止ssh断开或者意外原因导致安装中断\033[0m"
 echo -e "\033[32m如果ssh意外断开了，安装过程仍然在进行，使用cat install_log.txt手动查看安装进度\033[0m"
 echo -e "\033[32m安装过程的日志保存到了install_log.txt\033[0m"
