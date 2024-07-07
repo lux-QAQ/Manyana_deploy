@@ -6,14 +6,13 @@ import FluentUI 1.0
 import "../component"
 
 FluScrollablePage {
-    title: qsTr("彩蛋")
 
     FluFrame {
         Layout.fillWidth: true
-        Layout.preferredHeight: 500
+        Layout.preferredHeight: 1000
         padding: 10
         Column {
-            spacing: 15
+            spacing: 50
             width: parent.width
             height: parent.height
             anchors.centerIn: parent
