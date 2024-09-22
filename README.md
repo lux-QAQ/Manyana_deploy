@@ -42,5 +42,9 @@ B站视频演示：https://www.bilibili.com/video/BV1Km421K7gP/
 5. 签到无法正常发送图像，图像无法生成，检查你自己的头像是不是GIF或者别的离谱东西，正常图片机器人才能制作签到图像。
 
 无法解决问题时可以加群**理智**询问：623265372
+## License
 
+This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License. You can view the full license [here](LICENSE).
+
+![CC BY-NC License](https://licensebuttons.net/l/by-nc/4.0/88x31.png)
 
