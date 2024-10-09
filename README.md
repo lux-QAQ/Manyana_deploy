@@ -1,4 +1,5 @@
-# Manyana_deploy（带有UI界面，支持x86和arm64）
+# Manyana_deploy（带有UI界面，支持x86和arm64）（本仓库仅作为github的备份版本，非最新版）
+（本仓库仅作为github的备份版本，非最新版，请前往[Gitee](https://gitee.com/laixi_lingdun/Manyana_deploy)查看最新版）
 Manyana机器人一键部署脚本，适用于带有apt和yum的系统（建议使用ubuntu会少很多奇怪的问题） :yum: 
 
 # 使用方法
